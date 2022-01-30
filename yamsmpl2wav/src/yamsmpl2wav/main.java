@@ -55,18 +55,18 @@ public class main {
 							
 							stereoSamples = yamahaSmplFile.stereoShortIntoShort(sampleL, sampleR);
 							
-							yamahaSmplFile.writeWavFile(yamahaFile1, 2, stereoSamples, rootPath, diskName, sampleFolderName);
+							yamahaSmplFile.writeWavFile(yamahaFile1, 2, stereoSamples, rootPath, folderTools.getCorrectFileString(diskName), sampleFolderName);
 							
 							i++; //sums i since the next sample is part of the first one
 						} else {
 							//write only the first sample as short (mono) and delete the next sample
 							
-							yamahaSmplFile.writeWavFile(yamahaFile1, 1, yamahaSmplFile.getSamples(yamahaFile1), rootPath, diskName, sampleFolderName);
+							yamahaSmplFile.writeWavFile(yamahaFile1, 1, yamahaSmplFile.getSamples(yamahaFile1), rootPath, folderTools.getCorrectFileString(diskName), sampleFolderName);
 							
 						}
 					} catch (ArrayIndexOutOfBoundsException e){
 						//writes the last file of the folder
-						yamahaSmplFile.writeWavFile(yamahaFile1, 1, yamahaSmplFile.getSamples(yamahaFile1), rootPath, diskName, sampleFolderName);
+						yamahaSmplFile.writeWavFile(yamahaFile1, 1, yamahaSmplFile.getSamples(yamahaFile1), rootPath, folderTools.getCorrectFileString(diskName), sampleFolderName);
 						
 						break;
 					}
@@ -113,7 +113,7 @@ public class main {
 				//----------------
 				
 				//Creates disk folder in folderOutPath
-				new File(folderOUTPath + "\\" + folderTools.getCorrectString(diskName)).mkdirs();
+				new File(folderOUTPath + "\\" + folderTools.getCorrectFileString(diskName)).mkdirs();
 				//-----------------
 				
 				//Selects sample folder
@@ -126,12 +126,12 @@ public class main {
 				//-----------------------
 				
 				//Creates disk folder in folderOutPath
-				System.out.println(folderOUTPath + "\\" + folderTools.getCorrectString(diskName) + "\\" + folderTools.getCorrectFileString(sampleFolderNamesList[j - 1])); //the -1 is the j = 1 which it should be 0 to make the array work
+				System.out.println(folderOUTPath + "\\" + folderTools.getCorrectFileString(diskName) + "\\" + folderTools.getCorrectFileString(sampleFolderNamesList[j - 1])); //the -1 is the j = 1 which it should be 0 to make the array work
 				
-				new File(folderOUTPath + "\\" + folderTools.getCorrectString(diskName) + "\\" + folderTools.getCorrectFileString(sampleFolderNamesList[j - 1])).mkdirs();
+				new File(folderOUTPath + "\\" + folderTools.getCorrectFileString(diskName) + "\\" + folderTools.getCorrectFileString(sampleFolderNamesList[j - 1])).mkdirs();
 				//-----------------
 				
-				samplesRendering(folderOUTPath, folderTools.getCorrectString(diskName), folderTools.getCorrectFileString(sampleFolderNamesList[j - 1]), sampleFolder.getPath());
+				samplesRendering(folderOUTPath, folderTools.getCorrectFileString(diskName), folderTools.getCorrectFileString(sampleFolderNamesList[j - 1]), sampleFolder.getPath());
 				
 				}
 			}
