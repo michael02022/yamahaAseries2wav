@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-public class folderTools {
+public class FolderTools {
 
 	public static String getDiskName(String diskFilePath) throws IOException {
 
@@ -29,7 +29,7 @@ public class folderTools {
 		byte[] byteNames = new byte[(int) cerosFile.length() - 1]; // -1 is the starting byte
 		byte[] byteName = new byte[16];
 
-		byteNames = hexTools.getBytes(cerosFile, byteNames.length, "1"); // the offset 1 is the starting byte
+		byteNames = HexTools.getBytes(cerosFile, byteNames.length, "1"); // the offset 1 is the starting byte
 
 		int offset = 0;
 		int folderNumber = 0;
@@ -43,7 +43,7 @@ public class folderTools {
 				for (int k = 0; k < 16; k++) {
 					byteName[k] = byteNames[k + offset];
 				}
-				String extractedName = new String(hexTools.byteArrayToString(byteName)); // converts the bytes into
+				String extractedName = new String(HexTools.byteArrayToString(byteName)); // converts the bytes into
 																							// string
 				sampleFolderNames[folderNumber] = extractedName; // insert the extracted name into the name string array
 				folderNumber++; // sums folder number

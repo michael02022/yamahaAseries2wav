@@ -28,19 +28,19 @@ public class main {
 					//first revision
 					checkFile = new File (folderYamahaPath + "\\" + sampleFilesList[i]); //selects the file with the fake id file (k)
 					
-					stereoChecker[0] = yamahaSmplFile.getSideChannel(checkFile); //store the channel information in the stereo Array with the selected file
+					stereoChecker[0] = YamahaSmplFile.getSideChannel(checkFile); //store the channel information in the stereo Array with the selected file
 					
 					yamahaFile1 = new File (folderYamahaPath + "\\" + sampleFilesList[i]);
-					int sizeYamahaFile1 = (int) yamahaSmplFile.getSizeFile(yamahaFile1); //gets the size of the file
+					int sizeYamahaFile1 = (int) YamahaSmplFile.getSizeFile(yamahaFile1); //gets the size of the file
 					
 					i++;
 					//second revision
 					checkFile = new File (folderYamahaPath + "\\" + sampleFilesList[i]); //selects the file with the fake id file (k)
 					
-					stereoChecker[1] = yamahaSmplFile.getSideChannel(checkFile); //store the channel information in the stereo Array with the selected file
+					stereoChecker[1] = YamahaSmplFile.getSideChannel(checkFile); //store the channel information in the stereo Array with the selected file
 					
 					yamahaFile2 = new File (folderYamahaPath + "\\" + sampleFilesList[i]);
-					int sizeYamahaFile2 = (int) yamahaSmplFile.getSizeFile(yamahaFile2);
+					int sizeYamahaFile2 = (int) YamahaSmplFile.getSizeFile(yamahaFile2);
 					
 					i++;
 						
@@ -48,25 +48,25 @@ public class main {
 						
 						if (stereoChecker[0].equals("L") && (stereoChecker[1].equals("R") && (sizeYamahaFile1 == sizeYamahaFile2))) { //If the 2 samples are L and R and same size
 							//write both samples into 1 short (stereo)
-							short[] stereoSamples = new short[yamahaSmplFile.getSizeOfSample(yamahaFile1) * 2]; //size of the stereo sample
+							short[] stereoSamples = new short[YamahaSmplFile.getSizeOfSample(yamahaFile1) * 2]; //size of the stereo sample
 								
-							short[] sampleL = yamahaSmplFile.getSamples(yamahaFile1);
-							short[] sampleR = yamahaSmplFile.getSamples(yamahaFile2);
+							short[] sampleL = YamahaSmplFile.getSamples(yamahaFile1);
+							short[] sampleR = YamahaSmplFile.getSamples(yamahaFile2);
 							
-							stereoSamples = yamahaSmplFile.stereoShortIntoShort(sampleL, sampleR);
+							stereoSamples = YamahaSmplFile.stereoShortIntoShort(sampleL, sampleR);
 							
-							yamahaSmplFile.writeWavFile(yamahaFile1, 2, stereoSamples, rootPath, folderTools.getCorrectFileString(diskName), sampleFolderName);
+							YamahaSmplFile.writeWavFile(yamahaFile1, 2, stereoSamples, rootPath, FolderTools.getCorrectFileString(diskName), sampleFolderName);
 							
 							i++; //sums i since the next sample is part of the first one
 						} else {
 							//write only the first sample as short (mono) and delete the next sample
 							
-							yamahaSmplFile.writeWavFile(yamahaFile1, 1, yamahaSmplFile.getSamples(yamahaFile1), rootPath, folderTools.getCorrectFileString(diskName), sampleFolderName);
+							YamahaSmplFile.writeWavFile(yamahaFile1, 1, YamahaSmplFile.getSamples(yamahaFile1), rootPath, FolderTools.getCorrectFileString(diskName), sampleFolderName);
 							
 						}
 					} catch (ArrayIndexOutOfBoundsException e){
 						//writes the last file of the folder
-						yamahaSmplFile.writeWavFile(yamahaFile1, 1, yamahaSmplFile.getSamples(yamahaFile1), rootPath, folderTools.getCorrectFileString(diskName), sampleFolderName);
+						YamahaSmplFile.writeWavFile(yamahaFile1, 1, YamahaSmplFile.getSamples(yamahaFile1), rootPath, FolderTools.getCorrectFileString(diskName), sampleFolderName);
 						
 						break;
 					}
@@ -109,11 +109,11 @@ public class main {
 			for (int j = 1; j < sampleFolderList.length - 1; j++) { //skips 0000 and last Fxxx file
 				
 				//Selects 0000 file
-				String diskName = folderTools.getDiskName(folderINPath + "\\" +  folderTools.getCorrectString(diskList[i]) + "\\" + sampleFolderList[sampleFolderList.length - 1]); //uses the last file, being Fxxx (name of disk folder)
+				String diskName = FolderTools.getDiskName(folderINPath + "\\" +  FolderTools.getCorrectString(diskList[i]) + "\\" + sampleFolderList[sampleFolderList.length - 1]); //uses the last file, being Fxxx (name of disk folder)
 				//----------------
 				
 				//Creates disk folder in folderOutPath
-				new File(folderOUTPath + "\\" + folderTools.getCorrectFileString(diskName)).mkdirs();
+				new File(folderOUTPath + "\\" + FolderTools.getCorrectFileString(diskName)).mkdirs();
 				//-----------------
 				
 				//Selects sample folder
@@ -122,16 +122,16 @@ public class main {
 				
 				//Get sample folder names
 				File cerosFile = new File(folderINPath + "\\" +  diskList[i] + "\\" + "0000");
-				sampleFolderNamesList = folderTools.getSampleFolderNames(cerosFile, sampleFolderList);
+				sampleFolderNamesList = FolderTools.getSampleFolderNames(cerosFile, sampleFolderList);
 				//-----------------------
 				
 				//Creates disk folder in folderOutPath
-				System.out.println(folderOUTPath + "\\" + folderTools.getCorrectFileString(diskName) + "\\" + folderTools.getCorrectFileString(sampleFolderNamesList[j - 1])); //the -1 is the j = 1 which it should be 0 to make the array work
+				System.out.println(folderOUTPath + "\\" + FolderTools.getCorrectFileString(diskName) + "\\" + FolderTools.getCorrectFileString(sampleFolderNamesList[j - 1])); //the -1 is the j = 1 which it should be 0 to make the array work
 				
-				new File(folderOUTPath + "\\" + folderTools.getCorrectFileString(diskName) + "\\" + folderTools.getCorrectFileString(sampleFolderNamesList[j - 1])).mkdirs();
+				new File(folderOUTPath + "\\" + FolderTools.getCorrectFileString(diskName) + "\\" + FolderTools.getCorrectFileString(sampleFolderNamesList[j - 1])).mkdirs();
 				//-----------------
 				
-				samplesRendering(folderOUTPath, folderTools.getCorrectFileString(diskName), folderTools.getCorrectFileString(sampleFolderNamesList[j - 1]), sampleFolder.getPath());
+				samplesRendering(folderOUTPath, FolderTools.getCorrectFileString(diskName), FolderTools.getCorrectFileString(sampleFolderNamesList[j - 1]), sampleFolder.getPath());
 				
 				}
 			}

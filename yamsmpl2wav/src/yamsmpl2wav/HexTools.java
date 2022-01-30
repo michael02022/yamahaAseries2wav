@@ -6,7 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 
-public class hexTools {
+public class HexTools {
 	
 	public static int byteArrayToInt(byte[] byteArray)
     {

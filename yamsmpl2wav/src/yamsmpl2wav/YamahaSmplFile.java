@@ -13,7 +13,7 @@ import org.hackyourlife.s550.riff.SampleChunk;
 import org.hackyourlife.s550.riff.SampleChunk.SampleLoop;
 import org.hackyourlife.s550.riff.WaveFormatChunk;
 
-public class yamahaSmplFile {
+public class YamahaSmplFile {
 	
 	public static short[] getSamples (File yamahaSmplFile) throws NumberFormatException, IOException {
 		
@@ -22,9 +22,9 @@ public class yamahaSmplFile {
 		
 		byte [] byteSamples = new byte[sizeOfBytes];
 		
-		byteSamples = hexTools.getBytes(yamahaSmplFile, sizeOfBytes, "200");
+		byteSamples = HexTools.getBytes(yamahaSmplFile, sizeOfBytes, "200");
 		
-		short[] samples = hexTools.getShortFromBytes(byteSamples);
+		short[] samples = HexTools.getShortFromBytes(byteSamples);
 		
 		return samples;
 	}
@@ -44,14 +44,14 @@ public class yamahaSmplFile {
 	
 	public static String getName(File yamahaSmplFile) throws NumberFormatException, IOException {
 		
-		String fileName = new String (hexTools.getBytes(yamahaSmplFile, 16, "32"));
+		String fileName = new String (HexTools.getBytes(yamahaSmplFile, 16, "32"));
 		
 		return fileName;
 	}
 	
 	public static String getNameStereo(File yamahaSmplFile) throws NumberFormatException, IOException {
 		
-		String fileName = new String (hexTools.getBytes(yamahaSmplFile, 16, "32"));
+		String fileName = new String (HexTools.getBytes(yamahaSmplFile, 16, "32"));
 		
 		fileName = fileName.substring(0, 14);
 		
@@ -60,35 +60,35 @@ public class yamahaSmplFile {
 	
 	public static int getSampleRate (File yamahaSmplFile) throws NumberFormatException, IOException {
 		
-		int sampleRate = hexTools.byteArrayToInt(hexTools.getBytes(yamahaSmplFile, 2, "28"));
+		int sampleRate = HexTools.byteArrayToInt(HexTools.getBytes(yamahaSmplFile, 2, "28"));
 		
 		return sampleRate;
 	}
 	
 	public static int getMidiNote (File yamahaSmplFile) throws NumberFormatException, IOException {
 		
-		int midiNote = hexTools.byteArrayToInt(hexTools.getBytes(yamahaSmplFile, 1, "7E"));
+		int midiNote = HexTools.byteArrayToInt(HexTools.getBytes(yamahaSmplFile, 1, "7E"));
 		
 		return midiNote;
 	}
 	
 	public static int getStartLoop (File yamahaSmplFile) throws NumberFormatException, IOException {
 		
-		int startLoop = hexTools.byteArrayToInt(hexTools.getBytes(yamahaSmplFile, 4, "96"));
+		int startLoop = HexTools.byteArrayToInt(HexTools.getBytes(yamahaSmplFile, 4, "96"));
 		
-		return startLoop + 1; //fix most of loop issues, some samples needs +2 instead, other don't need any sum, probably some byte not documented
+		return startLoop + 1;
 	}
 	
 	public static int getEndLoop (File yamahaSmplFile) throws NumberFormatException, IOException {
 		
-		int endLoop = hexTools.byteArrayToInt(hexTools.getBytes(yamahaSmplFile, 4, "9A")) + getStartLoop(yamahaSmplFile);
+		int endLoop = HexTools.byteArrayToInt(HexTools.getBytes(yamahaSmplFile, 4, "9A")) + (getStartLoop(yamahaSmplFile) - 1);
 		
 		return endLoop;
 	}
 	
 	public static String getSideChannel (File yamahaSmplFile) throws NumberFormatException, IOException {
 		
-		String sideChannel = new String (hexTools.getBytes(yamahaSmplFile, 1, "41"));
+		String sideChannel = new String (HexTools.getBytes(yamahaSmplFile, 1, "41"));
 		
 		return sideChannel;
 	}
@@ -133,9 +133,9 @@ public class yamahaSmplFile {
 			nameFile = getName(smplFile);
 		}
 		
-		try(BufferedOutputStream wav = new BufferedOutputStream(new FileOutputStream(outPath + "\\" + diskName + "\\" + sampleFolderName + "\\" + folderTools.getCorrectFileString(nameFile) + ".wav"))) {
+		try(BufferedOutputStream wav = new BufferedOutputStream(new FileOutputStream(outPath + "\\" + diskName + "\\" + sampleFolderName + "\\" + FolderTools.getCorrectFileString(nameFile) + ".wav"))) {
 			wavFileOut.write(wav);
-			System.out.println(outPath + "\\" + folderTools.getCorrectFileString(diskName) + "\\" + folderTools.getCorrectFileString(sampleFolderName) + "\\" + folderTools.getCorrectFileString(nameFile) + ".wav");
+			System.out.println(outPath + "\\" + FolderTools.getCorrectFileString(diskName) + "\\" + FolderTools.getCorrectFileString(sampleFolderName) + "\\" + FolderTools.getCorrectFileString(nameFile) + ".wav");
 		}
 	}
 }
