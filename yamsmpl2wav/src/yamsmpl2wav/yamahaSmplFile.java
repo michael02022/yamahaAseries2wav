@@ -135,7 +135,7 @@ public class yamahaSmplFile {
 		
 		try(BufferedOutputStream wav = new BufferedOutputStream(new FileOutputStream(outPath + "\\" + diskName + "\\" + sampleFolderName + "\\" + folderTools.getCorrectFileString(nameFile) + ".wav"))) {
 			wavFileOut.write(wav);
-			System.out.println(outPath + "\\" + diskName + "\\" + sampleFolderName + "\\" + folderTools.getCorrectFileString(nameFile) + ".wav");
+			System.out.println(outPath + "\\" + diskName + "\\" + folderTools.getCorrectFileString(sampleFolderName) + "\\" + folderTools.getCorrectFileString(nameFile) + ".wav");
 		}
 	}
 }

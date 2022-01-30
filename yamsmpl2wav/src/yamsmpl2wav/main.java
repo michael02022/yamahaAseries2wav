@@ -126,12 +126,12 @@ public class main {
 				//-----------------------
 				
 				//Creates disk folder in folderOutPath
-				System.out.println(folderOUTPath + "\\" + folderTools.getCorrectString(diskName) + "\\" + sampleFolderNamesList[j - 1].trim()); //the -1 is the j = 1 which it should be 0 to make the array work
+				System.out.println(folderOUTPath + "\\" + folderTools.getCorrectString(diskName) + "\\" + folderTools.getCorrectFileString(sampleFolderNamesList[j - 1])); //the -1 is the j = 1 which it should be 0 to make the array work
 				
-				new File(folderOUTPath + "\\" + folderTools.getCorrectString(diskName) + "\\" + sampleFolderNamesList[j - 1].trim()).mkdirs();
+				new File(folderOUTPath + "\\" + folderTools.getCorrectString(diskName) + "\\" + folderTools.getCorrectFileString(sampleFolderNamesList[j - 1])).mkdirs();
 				//-----------------
 				
-				samplesRendering(folderOUTPath, folderTools.getCorrectString(diskName), sampleFolderNamesList[j - 1].trim(), sampleFolder.getPath());
+				samplesRendering(folderOUTPath, folderTools.getCorrectString(diskName), folderTools.getCorrectFileString(sampleFolderNamesList[j - 1]), sampleFolder.getPath());
 				
 				}
 			}
