@@ -10,14 +10,15 @@ public class HexTools {
 	
 	public static int byteArrayToInt(byte[] byteArray)
     {
-        String hex = "";
+        int result = 0;
   
         // Iterating through each byte in the array
         for (byte i : byteArray) {
-            hex += String.format("%02X", i);
+        	result <<= 8;
+            result |= Byte.toUnsignedInt(i);
         }
         
-        return Integer.parseInt(hex,16);
+        return result;
     }
 	
 	public static String byteArrayToString(byte[] byteArray)
